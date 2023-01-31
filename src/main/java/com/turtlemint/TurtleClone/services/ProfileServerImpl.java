@@ -45,29 +45,27 @@ public class ProfileServerImpl implements ProfileService {
 
     @Override
     public Profile updateProfile(String requestId, Profile profile) {
-        Profile profile1 = profileRepository.findByRequestId(requestId);
+        Profile old_profile = profileRepository.findByRequestId(requestId);
 
         // check if non-null then compare with original value
-        if(Objects.nonNull(profile1.getVertical()) && !"".equalsIgnoreCase(profile.getVertical())){
-            profile1.setVertical(profile.getVertical());
+        if(Objects.nonNull(profile.getVertical()) && !"".equalsIgnoreCase(profile.getVertical())){
+            old_profile.setVertical(profile.getVertical());
         }
 
-        if(Objects.nonNull(profile1.getVehicleMake()) && !"".equalsIgnoreCase(profile.getVehicleMake())){
-            profile1.setVehicleMake(profile.getVehicleMake());
+        if(Objects.nonNull(profile.getVehicleMake()) && !"".equalsIgnoreCase(profile.getVehicleMake())){
+            old_profile.setVehicleMake(profile.getVehicleMake());
         }
 
-        if (Objects.nonNull(profile1.getVehicleModel())&&!"".equalsIgnoreCase(profile.getVehicleModel())){
-            profile1.setVehicleModel(profile.getVehicleModel());
+        if (Objects.nonNull(profile.getVehicleModel()) && !"".equalsIgnoreCase(profile.getVehicleModel())){
+            old_profile.setVehicleModel(profile.getVehicleModel());
         }
-        profileRepository.save(profile1);
-        return profile1;
+        profileRepository.save(old_profile);
+        return old_profile;
     }
 
     @Override
-    public String deleteProfile(String requestId) {
-
-        profileRepository.deleteByRequestId(requestId);
-        return "Profile deleted successfully!";
-
+    public void deleteProfile(String requestId) {
+        Profile profile = profileRepository.deleteByRequestId(requestId);
+        return;
     }
 }

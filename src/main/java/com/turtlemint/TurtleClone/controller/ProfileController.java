@@ -20,18 +20,23 @@ public class ProfileController {
         return profileService.getAllProfiles();
     }
 
-    @GetMapping("/profile/{requestId}")
+    @GetMapping("/profiles/{requestId}")
     public Profile getProfileByRequestId(@PathVariable("requestId") String requestId){
         return profileService.getProfileByRequestId(requestId);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/profiles/{enteredProfile}")
-    public String addProfile(@PathVariable("enteredProfile") Profile profile){
+    @PostMapping("/profiles")
+    public String addProfile(@RequestBody Profile profile){
         return profileService.addProfile(profile);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/profiles/{requestId}")
+    @PutMapping("/profiles/{requestId}")
     public Profile updateProfile( @PathVariable("requestId") String requestId, @RequestBody Profile profile){
         return profileService.updateProfile(requestId, profile);
+    }
+
+    @DeleteMapping("/profiles/{requestId}")
+    public void deleteProfile(@PathVariable("requestId") String request_id){
+        profileService.deleteProfile(request_id);
     }
 }

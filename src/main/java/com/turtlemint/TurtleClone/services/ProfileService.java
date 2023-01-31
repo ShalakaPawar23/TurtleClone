@@ -10,5 +10,5 @@ public interface ProfileService {
     String addProfile(Profile profile);
 
     Profile updateProfile(String requestId, Profile profile);
-    String deleteProfile(String requestId);
+    void deleteProfile(String requestId);
 }

@@ -20,7 +20,7 @@ public class CheckoutServiceImpl implements CheckoutService{
 
     @Override
     public Checkout getCheckoutByCheckoutId(String checkoutId){
-        return checkoutRepository.findById(checkoutId).get();
+        return checkoutRepository.findByCheckoutId(checkoutId);
     }
 
     @Override
@@ -32,15 +32,15 @@ public class CheckoutServiceImpl implements CheckoutService{
     public Checkout updateCheckout(String checkoutId, Checkout checkout){
         Checkout checkout1 = checkoutRepository.findById(checkoutId).get();
 
-        if(Objects.nonNull(checkout1.getCustomerName()) && !"".equalsIgnoreCase(checkout.getCustomerName())){
+        if(Objects.nonNull(checkout.getCustomerName()) && !"".equalsIgnoreCase(checkout.getCustomerName())){
             checkout1.setCustomerName(checkout.getCustomerName());
         }
 
-        if(Objects.nonNull(checkout1.getCustomerEmail())&&!"".equalsIgnoreCase(checkout.getCustomerEmail())){
+        if(Objects.nonNull(checkout.getCustomerEmail())&&!"".equalsIgnoreCase(checkout.getCustomerEmail())){
             checkout1.setCustomerEmail(checkout.getCustomerEmail());
         }
 
-        if (Objects.nonNull(checkout1.getInsurer())&&!"".equalsIgnoreCase(checkout.getInsurer())){
+        if (Objects.nonNull(checkout.getInsurer())&&!"".equalsIgnoreCase(checkout.getInsurer())){
             checkout1.setInsurer(checkout.getInsurer());
         }
 
