@@ -7,6 +7,7 @@ import com.turtlemint.TurtleClone.repository.ProfileRepository;
 import com.turtlemint.TurtleClone.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RequestServiceImpl implements RequestService {
@@ -25,22 +26,24 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.findAll();
     }
 
+    // input = requestid
+    // fetch the vehicle make and model and find by them
     @Override
     public Request getByRequestId(String requestId){
-        return requestRepository.getByRequestId(requestId);
-    }
-
-    @Override
-    public List<Request> getByRequestId(String requestId){
         //use profile repo
         Profile profile = profileRepository.findByRequestId(requestId);
         String vertical = profile.getVertical();
         String vMake = profile.getVehicleMake();
         String vModel = profile.getVehicleModel();
+
+        return requestRepository.findByVehicleMakeandVehicleModel(vMake, vModel);
     }
 
-    @Override
-    public Request addRequest(Request request){
 
+    // have not checked if already present
+    @Override
+    public String addRequest(Request request){
+        requestRepository.insert(request);
+        return "Added quotation - " + request.getVehicleMake() +" " + request.getVehicleModel();
     }
 }

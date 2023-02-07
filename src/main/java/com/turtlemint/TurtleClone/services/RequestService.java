@@ -7,11 +7,10 @@ import java.util.List;
 
 @Service
 public interface RequestService {
+    // returns all the quotations for every vertical, vehicle make, model
     List<Request> getAllRequests();
 
     Request getByRequestId(String requestId);
 
-    List<Request> getByRequestId(String requestId);
-
-    Request addRequest(Request request);
+    String addRequest(Request request);
 }

@@ -4,9 +4,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
-@Document(collection = "Request")
+@Document(collection = "Quotations")
 public class Request {
-    private String id;
     private String vertical;
     private String vehicleMake;
     private String vehicleModel;

@@ -1,11 +1,11 @@
 package com.turtlemint.TurtleClone.services;
 
 import com.turtlemint.TurtleClone.model.Checkout;
+import com.turtlemint.TurtleClone.model.Customer;
 
 import java.util.List;
 
 public interface CheckoutService {
-    List<Checkout> getAllCheckouts();
 
     Checkout getCheckoutByCheckoutId(String checkoutId);
 
@@ -14,4 +14,8 @@ public interface CheckoutService {
     Checkout updateCheckout(String checkoutId, Checkout checkout);
 
     void deleteCheckout(String checkoutId);
+
+    Checkout getAllCheckoutByRequestId(String requestId);
+
+    Checkout getByRequestIdandInsurer(String requestId, String insurerName, Customer customer);
 }

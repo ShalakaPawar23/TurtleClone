@@ -7,15 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Checkout {
     @Id
     private String checkoutId;
-    private String customerName;
-    private String customerEmail;
-    private String insurer; //insurerId
+    private Customer customer;
+    private String insurer;
+    private String insuranceAmount; //insurerId
     private String requestId;
 
-    public Checkout(String customerName, String customerEmail, String insurer, String requestId) {
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.insurer = insurer;
+    public Checkout(Customer customer, String requestId, String insuranceAmount) {
+        this.customer = customer;
+        this.insuranceAmount = insuranceAmount;
         this.requestId = requestId;
     }
 
@@ -35,20 +34,16 @@ public class Checkout {
         this.checkoutId = checkoutId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public String getInsuranceAmount() {
+        return insuranceAmount;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getInsurer() {
