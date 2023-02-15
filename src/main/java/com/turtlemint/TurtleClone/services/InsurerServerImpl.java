@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class InsurerServerImpl implements InsurerService {
@@ -25,8 +26,18 @@ public class InsurerServerImpl implements InsurerService {
     }
 
     @Override
-    public void addInsurer(Insurer insurer){
+    public String addInsurer(Insurer insurer){
+        String insurerId = UUID.randomUUID().toString().replaceAll("_", "");
+
+        // check if already used this uuid then generate again
+        // check the list of profiles present
+        while(insurerRepository.findByInsurerId(insurerId) != null){
+            insurerId = UUID.randomUUID().toString().replaceAll("_", "");
+        }
+        System.out.println("Insurer request id = " + insurerId);
+        insurer.setInsurerId(insurerId);
         insurerRepository.save(insurer);
+        return insurerId;
     }
 
     @Override

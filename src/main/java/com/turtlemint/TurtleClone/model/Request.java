@@ -7,8 +7,8 @@ import java.util.ArrayList;
 @Document(collection = "Quotations")
 public class Request {
     private String vertical;
-    private String vehicleMake;
-    private String vehicleModel;
+    private String vmake;
+    private String vmodel;
 
     private ArrayList<Insurer> supportedInsurers;
 
@@ -21,19 +21,19 @@ public class Request {
     }
 
     public String getVehicleMake() {
-        return vehicleMake;
+        return vmake;
     }
 
     public void setVehicleMake(String vehicleMake) {
-        this.vehicleMake = vehicleMake;
+        this.vmake = vehicleMake;
     }
 
     public String getVehicleModel() {
-        return vehicleModel;
+        return vmodel;
     }
 
     public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
+        this.vmodel = vehicleModel;
     }
 
     public ArrayList<Insurer> getSupportedInsurers() {

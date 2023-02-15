@@ -5,7 +5,7 @@ import com.turtlemint.TurtleClone.model.Customer;
 import com.turtlemint.TurtleClone.model.Insurer;
 import com.turtlemint.TurtleClone.model.Request;
 import com.turtlemint.TurtleClone.repository.CheckoutRepository;
-import com.turtlemint.TurtleClone.repository.ProfileRepository;
+import com.turtlemint.TurtleClone.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,7 @@ import java.util.Objects;
 public class CheckoutServiceImpl implements CheckoutService{
     @Autowired
     private CheckoutRepository checkoutRepository;
-    @Autowired
-    private ProfileService profileService;
+
     @Autowired
     private RequestService requestService;
 
@@ -58,8 +57,8 @@ public class CheckoutServiceImpl implements CheckoutService{
     @Override
     public Checkout getByRequestIdandInsurer(String requestId, String insurerName, Customer customer){
         // find all by requestId - get all quotations
-        Request requests = requestService.getByRequestId(requestId);
-        ArrayList<Insurer> insurersLists = requests.getSupportedInsurers();
+        List<Request> requests = requestService.searchByRequestId(requestId);
+        ArrayList<Insurer> insurersLists = requests.get(0).getSupportedInsurers();
         Insurer insurer = null;
         //look for the insurer name in the list
         for(int i=0; i< insurersLists.size(); i++){
