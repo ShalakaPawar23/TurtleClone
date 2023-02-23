@@ -49,13 +49,21 @@ public class CheckoutServiceImpl implements CheckoutService{
     }
 
     @Override
-    public Checkout getAllCheckoutByRequestId(String requestId){
-
-        return checkoutRepository.findByRequestId(requestId);
+    public List getAllCheckoutByRequestId(String requestId){
+        List<List<String>> result = new ArrayList<List<String>>();
+        List<Checkout> presentCheckout = checkoutRepository.findAllByRequestId(requestId);
+        for(int i=0; i<presentCheckout.size(); i++){
+            List<String> currResult = new ArrayList<String>();
+            currResult.add(presentCheckout.get(i).getCustomer().getCustomerName());
+            currResult.add(presentCheckout.get(i).getInsurer());
+            currResult.add(presentCheckout.get(i).getInsuranceAmount());
+            result.add(currResult);
+        }
+        return result;
     }
 
     @Override
-    public Checkout getByRequestIdandInsurer(String requestId, String insurerName, Customer customer){
+    public String getByRequestIdandInsurer(String requestId, String insurerName, Customer customer){
         // find all by requestId - get all quotations
         List<Request> requests = requestService.searchByRequestId(requestId);
         ArrayList<Insurer> insurersLists = requests.get(0).getSupportedInsurers();
@@ -63,7 +71,7 @@ public class CheckoutServiceImpl implements CheckoutService{
         //look for the insurer name in the list
         for(int i=0; i< insurersLists.size(); i++){
             insurer = insurersLists.get(i);
-            if(insurer.getInsurerName().equalsIgnoreCase(insurerName)){
+            if(insurer.getName().equalsIgnoreCase(insurerName)){
                break;
             }
         }
@@ -73,10 +81,10 @@ public class CheckoutServiceImpl implements CheckoutService{
         }
         // create a checkout instance and return it
         Checkout result = new Checkout(customer, requestId, insurer.getPremium());
-        result.setInsurer(insurer.getInsurerName());
+        result.setInsurer(insurer.getName());
 
         // add in checkout repository
         checkoutRepository.insert(result);
-        return result;
+        return result.getInsuranceAmount();
     }
 }

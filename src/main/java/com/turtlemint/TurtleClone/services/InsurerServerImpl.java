@@ -44,8 +44,8 @@ public class InsurerServerImpl implements InsurerService {
     public Insurer updateInsurer(String insurerId, Insurer insurer){
         Insurer insurer1 = insurerRepository.findByInsurerId(insurerId);
 
-        if(Objects.nonNull(insurer.getInsurerName()) && !"".equalsIgnoreCase(insurer.getInsurerName())){
-            insurer1.setInsurerName(insurer.getInsurerName());
+        if(Objects.nonNull(insurer.getName()) && !"".equalsIgnoreCase(insurer.getName())){
+            insurer1.setName(insurer.getName());
         }
 
         if(Objects.nonNull(insurer.getPremium()) && !"".equalsIgnoreCase(insurer.getPremium())){

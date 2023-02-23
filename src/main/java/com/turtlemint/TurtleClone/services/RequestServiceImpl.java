@@ -46,19 +46,19 @@ public class RequestServiceImpl implements RequestService {
         String vMake = profile.getVehicleMake();
         String vModel = profile.getVehicleModel();
 
-        return requestRepository.findByVmakeAndVmodel(vMake, vModel);
+        return requestRepository.findByVehicleMakeAndVehicleModel(vMake, vModel);
     }
 
 
-    // have not checked if already present
     @Override
     public String addRequest(Request request){
         Profile profile = new Profile(request.getVertical(), request.getVehicleMake(), request.getVehicleModel());
-        profileService.addProfile(profile);
+        String reqId = profileService.addProfile(profile);
         for(int i=0; i<request.getSupportedInsurers().size(); i++){
-            Insurer insurer = new Insurer(request.getSupportedInsurers().get(i).getInsurerName(), request.getSupportedInsurers().get(i).getPremium());
+            Insurer insurer = new Insurer(request.getSupportedInsurers().get(i).getName(), request.getSupportedInsurers().get(i).getPremium());
             String insId = insurerService.addInsurer(insurer);
             insurer.setInsurerId(insId);
+            request.getSupportedInsurers().get(i).setInsurerId(insId);
             insurerRepository.save(insurer);
         }
         requestRepository.save(request);

@@ -2,6 +2,7 @@ package com.turtlemint.TurtleClone.services;
 
 import com.turtlemint.TurtleClone.model.Checkout;
 import com.turtlemint.TurtleClone.model.Customer;
+import com.turtlemint.TurtleClone.model.Insurer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface CheckoutService {
 
     void deleteCheckout(String checkoutId);
 
-    Checkout getAllCheckoutByRequestId(String requestId);
+    List<Insurer> getAllCheckoutByRequestId(String requestId);
 
-    Checkout getByRequestIdandInsurer(String requestId, String insurerName, Customer customer);
+    String getByRequestIdandInsurer(String requestId, String insurerName, Customer customer);
 }

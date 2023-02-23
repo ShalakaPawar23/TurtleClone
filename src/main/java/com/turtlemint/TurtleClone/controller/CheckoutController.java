@@ -17,17 +17,17 @@ public class CheckoutController {
     private CheckoutService checkoutService;
 
     @GetMapping("/checkout/{requestId}")
-    public Checkout getAllCheckoutByRequestId(@PathVariable("requestId") String requestId){
+    public List getAllCheckoutByRequestId(@PathVariable("requestId") String requestId){
         return checkoutService.getAllCheckoutByRequestId(requestId);
     }
 
-    @GetMapping(value = "/checkout/{checkoutId}")
-    public Checkout getCheckout(@PathVariable("checkoutId") String checkoutId){
-        return checkoutService.getCheckoutByCheckoutId(checkoutId);
-    }
+//    @GetMapping(value = "/checkout/{checkoutId}")
+//    public Checkout getCheckout(@PathVariable("checkoutId") String checkoutId){
+//        return checkoutService.getCheckoutByCheckoutId(checkoutId);
+//    }
 
     @GetMapping("/checkout/{requestId}/{insurerName}")
-    public Checkout getCheckoutByRequestIdandInsurer(@PathVariable("requestId") String requestId, @PathVariable("insurerName") String insurerName, @RequestBody Customer customer){
+    public String getCheckoutByRequestIdandInsurer(@PathVariable("requestId") String requestId, @PathVariable("insurerName") String insurerName, @RequestBody Customer customer){
        return checkoutService.getByRequestIdandInsurer(requestId, insurerName, customer);
     }
 

@@ -6,12 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Customer {
     String customerName;
     String customerNumber;
-    String getCustomerEmail;
+    String customerEmail;
 
-    public Customer(String customerName, String customerNumber, String getCustomerEmail) {
+    public Customer(String customerName, String customerNumber, String customerEmail) {
         this.customerName = customerName;
         this.customerNumber = customerNumber;
-        this.getCustomerEmail = getCustomerEmail;
+        this.customerEmail = customerEmail;
     }
 
     public String getCustomerName() {
@@ -30,11 +30,11 @@ public class Customer {
         this.customerNumber = customerNumber;
     }
 
-    public String getGetCustomerEmail() {
-        return getCustomerEmail;
+    public String getCustomerEmail() {
+        return this.customerEmail;
     }
 
-    public void setGetCustomerEmail(String getCustomerEmail) {
-        this.getCustomerEmail = getCustomerEmail;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 }
