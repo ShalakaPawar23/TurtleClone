@@ -2,12 +2,9 @@ package com.turtlemint.TurtleClone.controller;
 
 import com.turtlemint.TurtleClone.model.*;
 import com.turtlemint.TurtleClone.services.CheckoutService;
-import com.turtlemint.TurtleClone.services.CheckoutServiceImpl;
-import com.turtlemint.TurtleClone.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

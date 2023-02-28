@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 public interface CheckoutService {
-
+    List<Checkout> getAllCheckouts();
     Checkout getCheckoutByCheckoutId(String checkoutId);
 
     void addCheckout(Checkout checkout);

@@ -1,16 +1,29 @@
 package com.turtlemint.TurtleClone.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-
-@Document(collection = "Quotations")
-public class Request {
+@Document(collection = "FWVehicle")
+public class FWVehicle {
+    @Id
+    private String requestId;
     private String vertical;
     private String vehicleMake;
     private String vehicleModel;
 
-    private ArrayList<Insurer> supportedInsurers;
+    public FWVehicle(String vertical, String vehicleMake, String vehicleModel){
+        this.vertical = vertical;
+        this.vehicleMake = vehicleMake;
+        this.vehicleModel = vehicleModel;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
     public String getVertical() {
         return vertical;
@@ -34,13 +47,5 @@ public class Request {
 
     public void setVehicleModel(String vehicleModel) {
         this.vehicleModel = vehicleModel;
-    }
-
-    public ArrayList<Insurer> getSupportedInsurers() {
-        return supportedInsurers;
-    }
-
-    public void setSupportedInsurers(ArrayList<Insurer> supportedInsurers) {
-        this.supportedInsurers = supportedInsurers;
     }
 }

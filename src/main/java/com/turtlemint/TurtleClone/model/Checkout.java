@@ -12,8 +12,9 @@ public class Checkout {
     private String insuranceAmount; //insurerId
     private String requestId;
 
-    public Checkout(Customer customer, String requestId, String insuranceAmount) {
+    public Checkout(Customer customer, String requestId, String insurer, String insuranceAmount) {
         this.customer = customer;
+        this.insurer = insurer;
         this.insuranceAmount = insuranceAmount;
         this.requestId = requestId;
     }
@@ -40,6 +41,10 @@ public class Checkout {
 
     public String getInsuranceAmount() {
         return insuranceAmount;
+    }
+
+    public void setInsuranceAmount(String insuranceAmount) {
+        this.insuranceAmount = insuranceAmount;
     }
 
     public void setCustomer(Customer customer) {

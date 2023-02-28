@@ -1,11 +1,7 @@
 package com.turtlemint.TurtleClone.services;
 
-import com.turtlemint.TurtleClone.model.Checkout;
-import com.turtlemint.TurtleClone.model.Customer;
-import com.turtlemint.TurtleClone.model.Insurer;
-import com.turtlemint.TurtleClone.model.Request;
+import com.turtlemint.TurtleClone.model.*;
 import com.turtlemint.TurtleClone.repository.CheckoutRepository;
-import com.turtlemint.TurtleClone.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +15,12 @@ public class CheckoutServiceImpl implements CheckoutService{
     private CheckoutRepository checkoutRepository;
 
     @Autowired
-    private RequestService requestService;
+    private QuotationService quotationService;
 
+    @Override
+    public List<Checkout> getAllCheckouts(){
+        return checkoutRepository.findAll();
+    }
     @Override
     public Checkout getCheckoutByCheckoutId(String checkoutId){
         return checkoutRepository.findByCheckoutId(checkoutId);
@@ -37,6 +37,9 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         if (Objects.nonNull(checkout.getInsurer())&&!"".equalsIgnoreCase(checkout.getInsurer())){
             checkout1.setInsurer(checkout.getInsurer());
+        }
+        if (Objects.nonNull(checkout.getInsuranceAmount())&&!"".equalsIgnoreCase(checkout.getInsuranceAmount())){
+            checkout1.setInsuranceAmount(checkout.getInsuranceAmount());
         }
 
         checkoutRepository.save(checkout1);
@@ -65,7 +68,9 @@ public class CheckoutServiceImpl implements CheckoutService{
     @Override
     public String getByRequestIdandInsurer(String requestId, String insurerName, Customer customer){
         // find all by requestId - get all quotations
-        List<Request> requests = requestService.searchByRequestId(requestId);
+        List<Quotation> requests = quotationService.searchByRequestId(requestId);
+        if(Objects.isNull(requests) || requests.size() == 0)
+            return "0";
         ArrayList<Insurer> insurersLists = requests.get(0).getSupportedInsurers();
         Insurer insurer = null;
         //look for the insurer name in the list
@@ -80,10 +85,21 @@ public class CheckoutServiceImpl implements CheckoutService{
             return null;
         }
         // create a checkout instance and return it
-        Checkout result = new Checkout(customer, requestId, insurer.getPremium());
-        result.setInsurer(insurer.getName());
+        Checkout result = new Checkout(customer, requestId, insurer.getName(), insurer.getPremium());
+       // result.setInsurer(insurer.getName());
 
         // add in checkout repository
+        List<Checkout> presentCheckout = checkoutRepository.findAllByRequestId(requestId);
+        if(presentCheckout.size() > 0){
+            for(int i=0; i<presentCheckout.size(); i++) {
+                if (customer == presentCheckout.get(i).getCustomer() && insurerName.equalsIgnoreCase(presentCheckout.get(i).getInsurer())){
+                    // then already checkout requested
+                    // update the premium value
+                    result.setInsuranceAmount(presentCheckout.get(i).getInsuranceAmount());
+                    break;
+                }
+            }
+        }
         checkoutRepository.insert(result);
         return result.getInsuranceAmount();
     }
