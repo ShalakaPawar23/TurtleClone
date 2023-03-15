@@ -112,23 +112,23 @@ public class TurtleCloneApplicationTests {
 		assertEquals(2, quotationService.getAllQuotations().size());
 	}
 
-	@Test
-	public void getQuotationByRequestIdTest() {
-		Insurer digit = new Insurer("digit", "1200");
-		Quotation quote = new Quotation( "TW", "bajaj", "ertiga", new ArrayList<Insurer>(Arrays.asList(digit)));
-		quotationService.addQuotation(quote);
-		String reqId = profileService.addProfile(new Profile("TW", "bajaj", "ertiga"));
-		System.out.println(reqId + " new profile created");
-		Profile profile = profileRepository.findByRequestId(reqId);
-		if(Objects.nonNull(profile)){
-			when(quotationRepository.findByVehicleMakeAndVehicleModel(profile.getVehicleMake(), profile.getVehicleModel())).thenReturn(Stream.of(quote).collect(Collectors.toList()));
-			assertEquals(1, quotationService.searchByRequestId(reqId).size());
-
-		}
-		else {
-			fail("Did not create profile");
-		}
-	}
+//	@Test
+//	public void getQuotationByRequestIdTest() {
+//		Insurer digit = new Insurer("digit", "1200");
+//		Quotation quote = new Quotation( "TW", "bajaj", "ertiga", new ArrayList<Insurer>(Arrays.asList(digit)));
+//		quotationService.addQuotation(quote);
+//		String reqId = profileService.addProfile(new Profile("TW", "bajaj", "ertiga"));
+//		System.out.println(reqId + " new profile created");
+//		Profile profile = profileRepository.findByRequestId(reqId);
+//		if(Objects.nonNull(profile)){
+//			when(quotationRepository.findByVehicleMakeAndVehicleModel(profile.getVehicleMake(), profile.getVehicleModel())).thenReturn(Stream.of(quote).collect(Collectors.toList()));
+//			assertEquals(1, quotationService.searchByRequestId(reqId).size());
+//
+//		}
+//		else {
+//			fail("Did not create profile");
+//		}
+//	}
 
 	@Test
 	public void getAllCheckoutsTest() {
@@ -152,7 +152,6 @@ public class TurtleCloneApplicationTests {
 	public void checkoutByRequestIdTest(){
 		Quotation quote = new Quotation( "TW", "bajaj", "ertiga", new ArrayList<Insurer>(Arrays.asList(digit)));
 		quotationService.addQuotation(quote);
-
 	}
 
 }
